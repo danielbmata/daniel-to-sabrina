@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Aniversário de Namoro!</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        .timeline {
+            margin: 2rem 0;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+        }
+        
+        .memory {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            border-left: 4px solid #ff4d4d;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .memory-date {
+            color: #ff4d4d;
+            font-weight: bold;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .gallery-placeholder {
+            background: rgba(255, 255, 255, 0.5);
+            height: 200px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ff4d4d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="animate__animated animate__fadeIn">Feliz Dia 12, Neném!</h1>
+        
+        <div class="message-card animate__animated animate__fadeInUp">
+            <p class="love-message">
+                Hoje celebramos mais um ano juntos, mais um ano de amor, cumplicidade e momentos especiais.
+                Cada dia ao seu lado é uma nova aventura, uma nova chance de te amar ainda mais.
+                Você é minha melhor escolha, meu amor eterno.
+            </p>
+        </div>
+
+        <div class="timeline animate__animated animate__fadeInUp">
+            <h2>Nossa História</h2>
+            <div class="memory">
+                <p class="memory-date">Primeiro Encontro</p>
+                <p>Aquele dia especial em que nossos olhares se cruzaram pela primeira vez...</p>
+            </div>
+            <div class="memory">
+                <p class="memory-date">Primeiro Beijo</p>
+                <p>O momento mágico que selou o início da nossa história...</p>
+            </div>
+            <div class="memory">
+                <p class="memory-date">Pedido de Namoro</p>
+                <p>Quando oficialmente começamos nossa jornada juntos...</p>
+            </div>
+        </div>
+
+        <div class="gallery">
+            <!-- Aqui você pode adicionar fotos de momentos especiais -->
+            <div class="gallery-placeholder">Foto 1</div>
+            <div class="gallery-placeholder">Foto 2</div>
+            <div class="gallery-placeholder">Foto 3</div>
+        </div>
+
+        <p class="signature">Te amo infinitamente, Daniel</p>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 

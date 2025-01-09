@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aguardando o Momento Especial</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        .locked-message {
+            background: var(--glass-effect);
+            padding: 2.5rem;
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            max-width: 800px;
+            margin: 2rem auto;
+            text-align: center;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .countdown {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            color: var(--primary-color);
+            margin: 1.5rem 0;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(255, 77, 77, 0.2);
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .lock-icon {
+            font-size: clamp(3rem, 6vw, 4rem);
+            margin: 1rem 0;
+            color: var(--primary-color);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .waiting-message {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            line-height: 1.8;
+            color: var(--text-color);
+            margin: 1.5rem 0;
+            font-weight: 300;
+        }
+
+        .envelope {
+            position: relative;
+            width: clamp(180px, 30vw, 250px);
+            height: clamp(108px, 18vw, 150px);
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            margin: 2rem auto;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .envelope:hover {
+            transform: scale(1.05) rotate3d(1, 1, 0, 15deg);
+        }
+
+        .envelope::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 0;
+            height: 0;
+            border-left: calc(clamp(180px, 30vw, 250px) * 0.5) solid transparent;
+            border-right: calc(clamp(180px, 30vw, 250px) * 0.5) solid transparent;
+            border-top: calc(clamp(108px, 18vw, 150px) * 0.6) solid var(--secondary-color);
+            transition: transform 0.5s ease;
+            transform-origin: top;
+        }
+
+        .envelope.open::before {
+            transform: rotateX(180deg);
+        }
+
+        .error-message {
+            color: var(--primary-color);
+            font-size: clamp(1rem, 2vw, 1.1rem);
+            margin-top: 1rem;
+            animation: shake 0.5s ease-in-out;
+            font-weight: 500;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px) rotate(-1deg); }
+            75% { transform: translateX(10px) rotate(1deg); }
+        }
+
+        /* MacBook Pro Específico */
+        @media screen and (min-width: 1280px) {
+            .locked-message {
+                padding: 3rem;
+            }
+        }
+
+        /* iPhone 14 Específico */
+        @media screen and (max-width: 390px) {
+            .locked-message {
+                padding: 1.5rem;
+                margin: 1rem;
+            }
+
+            .envelope {
+                width: 180px;
+                height: 108px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="locked-content" class="locked-message animate__animated animate__fadeIn">
+            <div class="lock-icon">🔒</div>
+            <h1>Aguarde o Momento Especial</h1>
+            <p class="waiting-message">
+                Esta surpresa só poderá ser aberta no dia do nosso aniversário de namoro ❤️
+            </p>
+            <div class="countdown" id="countdown"></div>
+            <div class="envelope" id="envelope"></div>
+            <p id="error-message" class="error-message hidden">
+                Ainda não é hora, meu amor. Aguarde mais um pouquinho! 😊
+            </p>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const targetDate = new Date('2025-01-12T00:00:00');
+            const envelope = document.getElementById('envelope');
+            const errorMessage = document.getElementById('error-message');
+
+            function updateCountdown() {
+                const now = new Date();
+                const difference = targetDate - now;
+
+                if (difference <= 0) {
+                    document.getElementById('countdown').innerHTML = 'É hoje! ❤️';
+                    envelope.style.cursor = 'pointer';
+                    return;
+                }
+
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                document.getElementById('countdown').innerHTML = 
+                    `${days}d ${hours}h ${minutes}m ${seconds}s`;
+            }
+
+            setInterval(updateCountdown, 1000);
+            updateCountdown();
+
+            envelope.addEventListener('click', () => {
+                const now = new Date();
+                if (now >= targetDate) {
+                    envelope.classList.add('open');
+                    setTimeout(() => {
+                        window.location.href = '/anniversary.html';
+                    }, 1000);
+                } else {
+                    errorMessage.classList.remove('hidden');
+                    envelope.style.animation = 'shake 0.5s ease-in-out';
+                    setTimeout(() => {
+                        errorMessage.classList.add('hidden');
+                        envelope.style.animation = '';
+                    }, 3000);
+                }
+            });
+
+            function createFloatingHeart() {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤️';
+                heart.style.position = 'fixed';
+                heart.style.left = Math.random() * window.innerWidth + 'px';
+                heart.style.top = window.innerHeight + 'px';
+                heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                heart.style.opacity = '0.6';
+                heart.style.pointerEvents = 'none';
+                heart.style.zIndex = '-1';
+                document.body.appendChild(heart);
+
+                const animation = heart.animate([
+                    { transform: 'translateY(0) rotate(0deg)', opacity: 0.6 },
+                    { transform: `translateY(-${window.innerHeight + 100}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+                ], {
+                    duration: Math.random() * 3000 + 3000,
+                    easing: 'ease-out'
+                });
+
+                animation.onfinish = () => heart.remove();
+            }
+
+            setInterval(createFloatingHeart, 2000);
+        });
+    </script>
+</body>
+</html> 
