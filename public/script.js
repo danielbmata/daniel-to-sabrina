@@ -60,15 +60,31 @@ document.addEventListener('DOMContentLoaded', () => {
         let isPlaying = false;
         bgMusic.volume = 0.5; // Volume padrão
 
-        musicControl.addEventListener('click', () => {
-            if (isPlaying) {
-                bgMusic.pause();
-                musicControl.innerHTML = '<i class="fas fa-music"></i>';
-            } else {
-                bgMusic.play();
-                musicControl.innerHTML = '<i class="fas fa-pause"></i>';
+        // Tratamento de erro para a música
+        bgMusic.addEventListener('error', function() {
+            console.error('Erro ao carregar a música:', bgMusic.error);
+            musicControl.style.display = 'none';
+        });
+
+        musicControl.addEventListener('click', async () => {
+            try {
+                if (isPlaying) {
+                    await bgMusic.pause();
+                    musicControl.innerHTML = '<i class="fas fa-music"></i>';
+                } else {
+                    const playPromise = bgMusic.play();
+                    if (playPromise !== undefined) {
+                        playPromise.then(() => {
+                            musicControl.innerHTML = '<i class="fas fa-pause"></i>';
+                        }).catch(error => {
+                            console.error('Erro ao tocar música:', error);
+                        });
+                    }
+                }
+                isPlaying = !isPlaying;
+            } catch (error) {
+                console.error('Erro no controle de música:', error);
             }
-            isPlaying = !isPlaying;
         });
     }
 
