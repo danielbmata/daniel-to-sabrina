@@ -475,3 +475,178 @@ h1 {
         font-size: 1.2rem;
     }
 }
+
+/* Ajustes Globais de Responsividade */
+@media screen and (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .message-card {
+        padding: 1.5rem;
+        margin: 1.5rem auto;
+    }
+
+    .love-message {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    .signature {
+        font-size: 1.1rem;
+    }
+
+    .photos-container {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .surprise-button {
+        width: 90%;
+        max-width: 300px;
+        padding: 0.8rem 1.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Ajustes para Tablets */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .container {
+        padding: 2rem;
+    }
+
+    .photos-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .message-card {
+        padding: 2rem;
+    }
+}
+
+/* Ajustes para Telas Pequenas */
+@media screen and (max-width: 360px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .message-card {
+        padding: 1.2rem;
+        margin: 1rem auto;
+    }
+
+    .love-message {
+        font-size: 0.9rem;
+    }
+
+    .home-button {
+        width: 35px;
+        height: 35px;
+        top: 10px;
+        left: 10px;
+    }
+
+    .home-button i {
+        font-size: 1rem;
+    }
+
+    .music-control {
+        width: 35px;
+        height: 35px;
+        bottom: 15px;
+        right: 15px;
+    }
+
+    .music-control i {
+        font-size: 1rem;
+    }
+}
+
+/* Ajustes para Telas Grandes */
+@media screen and (min-width: 1440px) {
+    .container {
+        max-width: 1400px;
+        padding: 3rem;
+    }
+
+    h1 {
+        font-size: 3.5rem;
+    }
+
+    .message-card {
+        padding: 3rem;
+    }
+
+    .love-message {
+        font-size: 1.3rem;
+        line-height: 1.8;
+    }
+
+    .photos-container {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+    }
+}
+
+/* Ajustes para Orientação Paisagem em Dispositivos Móveis */
+@media screen and (max-height: 600px) and (orientation: landscape) {
+    .container {
+        padding: 1rem;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+
+    .message-card {
+        padding: 1.2rem;
+        margin: 1rem auto;
+    }
+
+    .photos-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
+    }
+
+    .surprise-button {
+        margin-top: 1rem;
+        padding: 0.6rem 1.2rem;
+    }
+}
+
+/* Ajustes para Dispositivos com Tela Retina */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .message-card {
+        backdrop-filter: blur(12px);
+    }
+
+    .heart::before,
+    .heart::after {
+        box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+    }
+}
+
+/* Ajustes para Modo Escuro do Sistema */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text-color: #f0f0f0;
+        --background-gradient: linear-gradient(135deg, #2a2a2a, #3a3a3a);
+        --glass-effect: rgba(255, 255, 255, 0.1);
+    }
+}
+
+/* Ajustes para Usuários que Preferem Menos Movimento */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
