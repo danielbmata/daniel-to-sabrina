@@ -6,41 +6,192 @@
     <title>Feliz Aniversário de Namoro!</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         .timeline {
             margin: 2rem 0;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
+            padding: 2rem;
+            background: var(--glass-effect);
+            border-radius: 24px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px);
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, 
+                transparent, 
+                var(--primary-color),
+                var(--secondary-color),
+                transparent
+            );
+            opacity: 0.5;
         }
         
         .memory {
-            margin: 1.5rem 0;
-            padding: 1rem;
-            border-left: 4px solid #ff4d4d;
-            background: rgba(255, 255, 255, 0.5);
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.7);
+            position: relative;
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .memory::before {
+            content: '❤️';
+            position: absolute;
+            left: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            animation: heartPulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartPulse {
+            0%, 100% { transform: translateY(-50%) scale(1); }
+            50% { transform: translateY(-50%) scale(1.2); }
+        }
+
+        .memory:hover {
+            transform: translateY(-5px) rotate3d(1, 1, 0, 5deg);
+            box-shadow: var(--shadow);
         }
 
         .memory-date {
-            color: #ff4d4d;
+            color: var(--primary-color);
             font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
             margin: 2rem 0;
+            padding: 1rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            aspect-ratio: 1;
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
 
         .gallery-placeholder {
-            background: rgba(255, 255, 255, 0.5);
-            height: 200px;
-            border-radius: 10px;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 77, 77, 0.1), rgba(255, 140, 148, 0.1));
+            border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #ff4d4d;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 2px dashed rgba(255, 77, 77, 0.3);
+        }
+
+        .gallery-placeholder:hover {
+            transform: scale(1.05) rotate3d(1, 1, 0, 5deg);
+            border-color: var(--primary-color);
+            box-shadow: var(--shadow);
+        }
+
+        .gallery-placeholder::before {
+            content: '📸';
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.7;
+        }
+
+        .love-quote {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: var(--text-color);
+            font-size: 1.2rem;
+            margin: 2rem 0;
+            position: relative;
+            padding: 0 2rem;
+        }
+
+        .love-quote::before,
+        .love-quote::after {
+            content: '"';
+            font-size: 3rem;
+            color: var(--primary-color);
+            position: absolute;
+            opacity: 0.3;
+        }
+
+        .love-quote::before {
+            left: 0;
+            top: -1rem;
+        }
+
+        .love-quote::after {
+            right: 0;
+            bottom: -2rem;
+        }
+
+        .special-moments {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        .moment-tag {
+            padding: 0.5rem 1.5rem;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .moment-tag:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        @media screen and (max-width: 390px) {
+            .timeline {
+                padding: 1rem;
+            }
+
+            .memory {
+                margin: 1.5rem 0;
+                padding: 1rem;
+            }
+
+            .memory::before {
+                left: -20px;
+            }
+
+            .gallery {
+                gap: 1rem;
+            }
         }
     </style>
 </head>
@@ -48,12 +199,28 @@
     <div class="container">
         <h1 class="animate__animated animate__fadeIn">Feliz Dia 12, Neném!</h1>
         
+        <div class="love-counter animate__animated animate__fadeInUp">
+            Estamos juntos há <span id="daysCounter">0</span> dias de muito amor ❤️
+        </div>
+
         <div class="message-card animate__animated animate__fadeInUp">
             <p class="love-message">
                 Hoje celebramos mais um ano juntos, mais um ano de amor, cumplicidade e momentos especiais.
                 Cada dia ao seu lado é uma nova aventura, uma nova chance de te amar ainda mais.
                 Você é minha melhor escolha, meu amor eterno.
             </p>
+            <p class="love-quote">
+                "Em você encontrei não apenas o amor, mas meu melhor amigo, minha paz e minha felicidade."
+            </p>
+        </div>
+
+        <div class="special-moments">
+            <span class="moment-tag">Nossos Sorrisos</span>
+            <span class="moment-tag">Nossas Aventuras</span>
+            <span class="moment-tag">Nossos Sonhos</span>
+            <span class="moment-tag">Nosso Amor</span>
+            <span class="moment-tag">Nossos Planos</span>
+            <span class="moment-tag">Nossa História</span>
         </div>
 
         <div class="timeline animate__animated animate__fadeInUp">
@@ -61,26 +228,103 @@
             <div class="memory">
                 <p class="memory-date">Primeiro Encontro</p>
                 <p>Aquele dia especial em que nossos olhares se cruzaram pela primeira vez...</p>
+                <p class="secret-message">Lembra como seu sorriso me encantou? ✨</p>
             </div>
             <div class="memory">
                 <p class="memory-date">Primeiro Beijo</p>
                 <p>O momento mágico que selou o início da nossa história...</p>
+                <p class="secret-message">Aquele beijo que fez meu coração disparar 💕</p>
             </div>
             <div class="memory">
                 <p class="memory-date">Pedido de Namoro</p>
                 <p>Quando oficialmente começamos nossa jornada juntos...</p>
+                <p class="secret-message">O melhor "sim" que já recebi 💍</p>
             </div>
         </div>
 
         <div class="gallery">
-            <!-- Aqui você pode adicionar fotos de momentos especiais -->
-            <div class="gallery-placeholder">Foto 1</div>
-            <div class="gallery-placeholder">Foto 2</div>
-            <div class="gallery-placeholder">Foto 3</div>
+            <div class="gallery-item polaroid" data-caption="Nosso Primeiro Encontro">
+                <div class="gallery-placeholder">Nosso Primeiro Encontro</div>
+            </div>
+            <div class="gallery-item polaroid" data-caption="Momentos Especiais">
+                <div class="gallery-placeholder">Momentos Especiais</div>
+            </div>
+            <div class="gallery-item polaroid" data-caption="Nossas Aventuras">
+                <div class="gallery-placeholder">Nossas Aventuras</div>
+            </div>
         </div>
 
         <p class="signature">Te amo infinitamente, Daniel</p>
     </div>
+
+    <!-- Controles de Música -->
+    <div class="music-control" id="musicControl">
+        <i class="fas fa-music"></i>
+    </div>
+    <div class="volume-slider" id="volumeSlider">
+        <input type="range" min="0" max="100" value="50" id="volumeControl">
+    </div>
+
+    <!-- Audio Element -->
+    <audio id="bgMusic" loop>
+        <source src="music/romantic.mp3" type="audio/mp3">
+    </audio>
+
+    <canvas class="confetti" id="confetti"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <script src="script.js"></script>
+    <script>
+        // Contador de dias
+        function updateDaysCounter() {
+            const startDate = new Date('2023-08-12'); // Data do início do namoro
+            const today = new Date();
+            const diffTime = Math.abs(today - startDate);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            document.getElementById('daysCounter').textContent = diffDays;
+        }
+        updateDaysCounter();
+
+        // Controle de Música
+        const musicControl = document.getElementById('musicControl');
+        const volumeSlider = document.getElementById('volumeSlider');
+        const volumeControl = document.getElementById('volumeControl');
+        const bgMusic = document.getElementById('bgMusic');
+        let isPlaying = false;
+
+        musicControl.addEventListener('click', () => {
+            if (isPlaying) {
+                bgMusic.pause();
+                musicControl.innerHTML = '<i class="fas fa-music"></i>';
+                volumeSlider.classList.remove('show');
+            } else {
+                bgMusic.play();
+                musicControl.innerHTML = '<i class="fas fa-pause"></i>';
+                volumeSlider.classList.add('show');
+            }
+            isPlaying = !isPlaying;
+        });
+
+        volumeControl.addEventListener('input', (e) => {
+            bgMusic.volume = e.target.value / 100;
+        });
+
+        // Efeito de Confete
+        function throwConfetti() {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        }
+
+        // Lança confete quando a página carrega
+        window.addEventListener('load', throwConfetti);
+
+        // Lança confete quando clica em momentos especiais
+        document.querySelectorAll('.moment-tag').forEach(tag => {
+            tag.addEventListener('click', throwConfetti);
+        });
+    </script>
 </body>
 </html> 
