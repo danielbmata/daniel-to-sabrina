@@ -52,6 +52,26 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Controle de Música
+    const musicControl = document.getElementById('musicControl');
+    const bgMusic = document.getElementById('bgMusic');
+    
+    if (musicControl && bgMusic) {
+        let isPlaying = false;
+        bgMusic.volume = 0.5; // Volume padrão
+
+        musicControl.addEventListener('click', () => {
+            if (isPlaying) {
+                bgMusic.pause();
+                musicControl.innerHTML = '<i class="fas fa-music"></i>';
+            } else {
+                bgMusic.play();
+                musicControl.innerHTML = '<i class="fas fa-pause"></i>';
+            }
+            isPlaying = !isPlaying;
+        });
+    }
+
     // Cria pequenos corações flutuantes aleatoriamente
     function createFloatingHeart() {
         const heart = document.createElement('div');
@@ -62,19 +82,19 @@ document.addEventListener('DOMContentLoaded', () => {
         heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
         heart.style.opacity = '0.6';
         heart.style.pointerEvents = 'none';
+        heart.style.zIndex = '-1';
         document.body.appendChild(heart);
 
         const animation = heart.animate([
-            { transform: 'translateY(0)', opacity: 0.6 },
-            { transform: `translateY(-${window.innerHeight + 100}px)`, opacity: 0 }
+            { transform: 'translateY(0) rotate(0deg)', opacity: 0.6 },
+            { transform: `translateY(-${window.innerHeight + 100}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
         ], {
             duration: Math.random() * 3000 + 3000,
-            easing: 'linear'
+            easing: 'ease-out'
         });
 
         animation.onfinish = () => heart.remove();
     }
 
-    // Cria corações flutuantes a cada 2 segundos
     setInterval(createFloatingHeart, 2000);
 });

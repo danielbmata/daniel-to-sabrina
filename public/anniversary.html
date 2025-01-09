@@ -196,6 +196,9 @@
     </style>
 </head>
 <body>
+    <a href="/" class="home-button">
+        <i class="fas fa-home"></i>
+    </a>
     <div class="container">
         <h1 class="animate__animated animate__fadeIn">Feliz Dia 12, Neném!</h1>
         
@@ -261,9 +264,6 @@
     <div class="music-control" id="musicControl">
         <i class="fas fa-music"></i>
     </div>
-    <div class="volume-slider" id="volumeSlider">
-        <input type="range" min="0" max="100" value="50" id="volumeControl">
-    </div>
 
     <!-- Audio Element -->
     <audio id="bgMusic" loop>
@@ -287,8 +287,6 @@
 
         // Controle de Música
         const musicControl = document.getElementById('musicControl');
-        const volumeSlider = document.getElementById('volumeSlider');
-        const volumeControl = document.getElementById('volumeControl');
         const bgMusic = document.getElementById('bgMusic');
         let isPlaying = false;
 
@@ -296,17 +294,11 @@
             if (isPlaying) {
                 bgMusic.pause();
                 musicControl.innerHTML = '<i class="fas fa-music"></i>';
-                volumeSlider.classList.remove('show');
             } else {
                 bgMusic.play();
                 musicControl.innerHTML = '<i class="fas fa-pause"></i>';
-                volumeSlider.classList.add('show');
             }
             isPlaying = !isPlaying;
-        });
-
-        volumeControl.addEventListener('input', (e) => {
-            bgMusic.volume = e.target.value / 100;
         });
 
         // Efeito de Confete
