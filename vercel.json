@@ -4,12 +4,32 @@
         {
             "src": "server.js",
             "use": "@vercel/node"
+        },
+        {
+            "src": "public/**",
+            "use": "@vercel/static"
         }
     ],
     "routes": [
         {
+            "src": "/styles.css",
+            "dest": "/public/styles.css"
+        },
+        {
+            "src": "/script.js",
+            "dest": "/public/script.js"
+        },
+        {
+            "src": "/check-date",
+            "dest": "/public/check-date.html"
+        },
+        {
+            "src": "/anniversary",
+            "dest": "/public/anniversary.html"
+        },
+        {
             "src": "/(.*)",
-            "dest": "server.js"
+            "dest": "/server.js"
         }
     ]
 } 
