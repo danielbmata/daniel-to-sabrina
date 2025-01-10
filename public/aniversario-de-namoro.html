@@ -104,6 +104,35 @@
             aspect-ratio: 1;
             transform-style: preserve-3d;
             perspective: 1000px;
+            background: white;
+            padding: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-item::after {
+            content: attr(data-caption);
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--primary-color);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .gallery-placeholder {
@@ -226,8 +255,19 @@
             }
 
             .gallery {
-                grid-template-columns: 1fr;
-                gap: 1.2rem;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1rem;
+                padding: 0.5rem;
+            }
+
+            .gallery-item {
+                padding: 8px;
+            }
+
+            .gallery-item::after {
+                font-size: 0.8rem;
+                padding: 4px 12px;
+                bottom: 15px;
             }
 
             .special-moments {
@@ -314,6 +354,33 @@
                 flex-shrink: 0;
             }
         }
+
+        /* Ajustes para telas muito pequenas */
+        @media screen and (max-width: 480px) {
+            .gallery {
+                grid-template-columns: 1fr;
+                max-width: 300px;
+                margin: 2rem auto;
+            }
+
+            .gallery-item {
+                aspect-ratio: 1;
+                max-width: 100%;
+            }
+        }
+
+        /* Ajustes para telas grandes */
+        @media screen and (min-width: 1440px) {
+            .gallery {
+                grid-template-columns: repeat(3, 1fr);
+                max-width: 1200px;
+                margin: 2rem auto;
+            }
+
+            .gallery-item {
+                max-height: 400px;
+            }
+        }
     </style>
 </head>
 
@@ -330,12 +397,24 @@
 
         <div class="message-card animate__animated animate__fadeInUp">
             <p class="love-message">
-                Hoje celebramos mais um ano juntos, mais um ano de amor, cumplicidade e momentos especiais.
-                Cada dia ao seu lado é uma nova aventura, uma nova chance de te amar ainda mais.
-                Você é minha melhor escolha, meu amor eterno.
+                Depois de comemorarmos o seu dia ontem, hoje é o nosso dia. Um dia que simboliza a escolha que fizemos
+                um pelo outro, e que tem sido a melhor decisão da minha vida. Este é o dia em que celebramos o amor, o
+                companheirismo e tudo o que construímos juntos.
+
+                Cada momento ao seu lado me faz perceber o quanto sou abençoado por ter você. Desde nossas primeiras
+                conversas até os momentos mais simples, tudo ao seu lado é mágico. Você me mostrou o verdadeiro
+                significado de amar e ser amado, e isso é algo que levarei comigo para sempre.
+
+                Quero que saiba que sou grato por tudo o que somos e por tudo o que ainda vamos ser. Que possamos continuar
+                crescendo juntos, enfrentando desafios com coragem e comemorando nossas vitórias com alegria.
+
+                Feliz aniversário de namoro, neném!
+                Você é a minha escolha hoje e será para sempre. Te amo mais do que consigo colocar em palavras. ❤️
+
+                
             </p>
             <p class="love-quote">
-                "Em você encontrei não apenas o amor, mas meu melhor amigo, minha paz e minha felicidade."
+                "Out the blue you came to me"
             </p>
         </div>
 
@@ -349,7 +428,7 @@
         </div>
 
         <div class="timeline animate__animated animate__fadeInUp">
-            
+
             <h2>Nossa História</h2>
             <div class="memory">
                 <p class="memory-date">Primeiros Contatos</p>
@@ -413,20 +492,20 @@
                     igrejinha, eu recebo o melhor "sim" da minha vida 💕</p>
                 <p class="secret-message">O melhor "sim" que já recebi 💍</p>
             </div>
-            
+
 
 
         </div>
 
         <div class="gallery">
-            <div class="gallery-item polaroid" data-caption="Nosso Primeiro Encontro">
-                <div class="gallery-placeholder">Nosso Primeiro Encontro</div>
+            <div class="gallery-item polaroid" data-caption="Te amo">
+                <img src="images/IMG_1507.jpg" alt="#">
             </div>
-            <div class="gallery-item polaroid" data-caption="Momentos Especiais">
-                <div class="gallery-placeholder">Momentos Especiais</div>
+            <div class="gallery-item polaroid" data-caption="Te quero">
+                <img src="images/IMG_1989.jpg" alt="#">
             </div>
-            <div class="gallery-item polaroid" data-caption="Nossas Aventuras">
-                <div class="gallery-placeholder">Nossas Aventuras</div>
+            <div class="gallery-item polaroid" data-caption="Te desejo">
+                <img src="images/IMG_3126.jpg" alt="#">
             </div>
         </div>
 
