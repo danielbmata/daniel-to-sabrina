@@ -20,12 +20,12 @@ app.get('/', (req, res) => {
 });
 
 // Rota para a página de verificação de data
-app.get('/check-date', (req, res) => {
+app.get('/verificar-data', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'check-date.html'));
 });
 
 // Rota para a página de aniversário
-app.get('/anniversary', (req, res) => {
+app.get('/aniversario-de-namoro', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'anniversary.html'));
 });
 

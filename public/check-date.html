@@ -59,7 +59,7 @@
             margin: 2rem auto;
             border-radius: 12px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.5s ease;
             box-shadow: var(--shadow);
             transform-style: preserve-3d;
             perspective: 1000px;
@@ -75,7 +75,7 @@
             height: 100%;
             background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
             clip-path: polygon(0 0, 50% 50%, 100% 0);
-            transition: transform 0.5s ease;
+            transition: transform 0.8s ease;
             transform-origin: top;
             z-index: 2;
         }
@@ -93,7 +93,7 @@
         }
 
         .envelope.open::before {
-            transform: rotateX(180deg);
+            transform: rotateX(180deg) translateY(-2px);
         }
 
         .envelope:hover {
@@ -103,6 +103,12 @@
 
         .envelope.open:hover {
             transform: scale(1.05) rotate3d(1, 1, 0, -15deg);
+        }
+
+        @keyframes openEnvelope {
+            0% { transform: scale(1) rotate3d(0, 0, 0, 0deg); }
+            50% { transform: scale(1.1) rotate3d(1, 1, 0, -5deg); }
+            100% { transform: scale(1.2) translateY(-20px); }
         }
 
         .error-message {
@@ -257,8 +263,8 @@
     <div class="container">
         <div id="locked-content" class="locked-message animate__animated animate__fadeIn">
             <div class="lock-icon">🔒</div>
-            <h1>Aguarde o Momento Especial</h1>
-            <p class="waiting-message">
+            <h1 id="pageTitle">Aguarde o Momento Especial</h1>
+            <p class="waiting-message" id="waitingMessage">
                 Esta surpresa só poderá ser aberta no dia do nosso aniversário de namoro ❤️
             </p>
             <div class="countdown" id="countdown"></div>
@@ -273,12 +279,29 @@
             const targetDate = new Date('2025-01-12T00:00:00');
             const envelope = document.getElementById('envelope');
             const errorMessage = document.getElementById('error-message');
+            const pageTitle = document.getElementById('pageTitle');
+            const waitingMessage = document.getElementById('waitingMessage');
+
+            function updateMessages(isTime) {
+                if (isTime) {
+                    pageTitle.textContent = 'Feliz Aniversário de Namoro! 💑';
+                    waitingMessage.textContent = 'Clique no envelope para ver sua surpresa especial ❤️';
+                    errorMessage.textContent = 'Clique no envelope para abrir sua surpresa! 🎁';
+                } else {
+                    pageTitle.textContent = 'Aguarde o Momento Especial';
+                    waitingMessage.textContent = 'Esta surpresa só poderá ser aberta no dia do nosso aniversário de namoro ❤️';
+                    errorMessage.textContent = 'Ainda não é hora, meu amor. Aguarde mais um pouquinho! 😊';
+                }
+            }
 
             function updateCountdown() {
                 const now = new Date();
                 const difference = targetDate - now;
+                const isTime = difference <= 0;
 
-                if (difference <= 0) {
+                updateMessages(isTime);
+
+                if (isTime) {
                     document.getElementById('countdown').innerHTML = 'É hoje! ❤️';
                     envelope.style.cursor = 'pointer';
                     return;
@@ -301,7 +324,13 @@
                 if (now >= targetDate) {
                     envelope.classList.add('open');
                     setTimeout(() => {
-                        window.location.href = '/anniversary';
+                        envelope.style.transition = 'all 0.5s ease';
+                        envelope.style.transform = 'scale(1.2) translateY(-20px)';
+                        envelope.style.opacity = '0';
+                        
+                        setTimeout(() => {
+                            window.location.href = '/aniversario-de-namoro';
+                        }, 500);
                     }, 1000);
                 } else {
                     errorMessage.classList.remove('hidden');
