@@ -21,12 +21,12 @@ app.get('/', (req, res) => {
 
 // Rota para a página de verificação de data
 app.get('/verificar-data', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'check-date.html'));
+    res.sendFile(path.join(__dirname, 'public', 'verificar-data.html'));
 });
 
 // Rota para a página de aniversário
 app.get('/aniversario-de-namoro', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'anniversary.html'));
+    res.sendFile(path.join(__dirname, 'public', 'aniversario-de-namoro.html'));
 });
 
 // Rota para capturar todas as outras requisições e redirecionar para a página principal
